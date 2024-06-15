@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCJY-GhTj6CJ6zaOl-o1myf2ix3sHugE0Y</string>
+	<key>GCM_SENDER_ID</key>
+	<string>763918127028</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.cretech.resource</string>
+	<key>PROJECT_ID</key>
+	<string>resourcehub-afb09</string>
+	<key>STORAGE_BUCKET</key>
+	<string>resourcehub-afb09.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:763918127028:ios:6eb93ea7e6d5b714ebece1</string>
+</dict>
+</plist>

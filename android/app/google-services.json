@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "763918127028",
+    "project_id": "resourcehub-afb09",
+    "storage_bucket": "resourcehub-afb09.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763918127028:android:e8a341d6b4cafb66ebece1",
+        "android_client_info": {
+          "package_name": "com.cretech.resourcehub"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRt3XESNAaZbID2CaJr8upirZNBaDF0Rc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
