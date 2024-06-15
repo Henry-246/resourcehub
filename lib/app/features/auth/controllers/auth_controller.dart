@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -31,7 +30,7 @@ class AuthController extends GetxController {
         );
 
         Get.snackbar('Success', 'Signed in successfully!');
-        Get.offAllNamed('/home');
+        Get.offAllNamed(AppRoutes.home);
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           Get.snackbar('Error', 'No user found for that email.');
