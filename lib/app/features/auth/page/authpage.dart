@@ -19,6 +19,8 @@ class AuthPage extends GetView<AuthController> {
                 children: [
                   Image.asset(
                     'assets/illustration.png',
+                    width: 50,
+                    height: 50,
                   ),
                   const SizedBox(height: 20),
                   Text(

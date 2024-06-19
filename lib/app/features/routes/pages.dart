@@ -4,6 +4,8 @@ import 'package:resource/app/features/auth/page/authpage.dart';
 import 'package:resource/app/features/auth/page/registerpage.dart';
 import 'package:resource/app/features/home/home.dart';
 import 'package:resource/app/features/home/home_bindings.dart';
+import 'package:resource/app/features/userdetails/userdetailsbinding.dart';
+import 'package:resource/app/features/userdetails/userdetailspage.dart';
 import 'routes.dart';
 
 abstract class AppPages {
@@ -19,8 +21,14 @@ abstract class AppPages {
       binding: AuthBindings(),
     ),
     GetPage(
-        name: AppRoutes.home,
-        page: () => const HomePage(),
-        binding: HomeBindings())
+      name: AppRoutes.home,
+      page: () => const HomePage(),
+      binding: HomeBindings(),
+    ),
+    GetPage(
+      name: AppRoutes.userdetails,
+      page: () => const UserDetailsPage(),
+      binding: UserDetailsBinding(),
+    ),
   ];
 }

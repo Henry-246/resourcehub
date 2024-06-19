@@ -15,7 +15,7 @@ class AuthController extends GetxController {
     super.onInit();
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user != null) {
-        Get.offAllNamed(AppRoutes.home);
+        Get.offAllNamed(AppRoutes.userdetails);
       }
     });
   }
@@ -30,7 +30,7 @@ class AuthController extends GetxController {
         );
 
         Get.snackbar('Success', 'Signed in successfully!');
-        Get.offAllNamed(AppRoutes.home);
+        Get.offAllNamed(AppRoutes.userdetails);
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {
           Get.snackbar('Error', 'No user found for that email.');
