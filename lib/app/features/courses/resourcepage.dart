@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:resource/app/features/courses/tabs/lecture_resource_page.dart';
 import 'package:resource/app/neumorphic.dart';
 
 class ResourcePage extends StatefulWidget {
   final String coursename;
-  const ResourcePage({super.key, required this.coursename});
+  final List lectureResource;
+  const ResourcePage({
+    super.key,
+    required this.coursename,
+    required this.lectureResource,
+  });
 
   @override
   State<ResourcePage> createState() => _ResourcePageState();
@@ -72,7 +78,9 @@ class _ResourcePageState extends State<ResourcePage> {
               Expanded(
                 child: TabBarView(
                   children: [
-                    Container(color: Colors.red),
+                    LectureResourcePage(
+                      lectureResource: widget.lectureResource,
+                    ),
                     Container(color: Colors.blue),
                     Container(color: Colors.yellow),
                   ],

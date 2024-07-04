@@ -32,6 +32,6 @@ class MyApp extends StatelessWidget {
       initialRoute: isAuthenticated ? AppRoutes.home : AppRoutes.auth,
       initialBinding: isAuthenticated ? HomeBindings() : AuthBindings(),
       themeMode: ThemeMode.dark,
-    );
+    ); 
   }
 }

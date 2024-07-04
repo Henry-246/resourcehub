@@ -107,6 +107,7 @@ class _CoursePageState extends State<CoursePage> {
                   Get.to(
                     () => ResourcePage(
                       coursename: course['name'],
+                      lectureResource: course['lectures'],
                     ),
                   );
                 },
