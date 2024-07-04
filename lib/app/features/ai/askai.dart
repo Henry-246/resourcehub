@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resource/app/features/ai/askaicontroller.dart';
 
 class AskAiPage extends StatefulWidget {
@@ -34,7 +35,7 @@ class _AskAiPageState extends State<AskAiPage> {
                       borderRadius: BorderRadius.circular(12)),
                   child: Text(
                     controller.aiResponse[index],
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                     ),
                   ),
@@ -49,14 +50,17 @@ class _AskAiPageState extends State<AskAiPage> {
               keyboardType: TextInputType.multiline,
               maxLines: null,
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
                 hintText: "Ask Ai anything..",
                 suffixIcon: Obx(
                   () => IconButton(
                     onPressed:
                         controller.isLoading.value ? null : controller.askAi,
                     icon: controller.isLoading.value
-                        ? const CircularProgressIndicator()
+                        ? LoadingAnimationWidget.staggeredDotsWave(
+                            color: Colors.blue,
+                            size: 40,
+                          )
                         : const Icon(Ionicons.send),
                   ),
                 ),

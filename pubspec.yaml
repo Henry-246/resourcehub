@@ -35,11 +35,13 @@ dependencies:
   firebase_core: ^3.1.0
   flutter:
     sdk: flutter
+  flutter_typeahead: ^5.2.0
   get: ^4.6.6
   get_storage: ^2.1.1
   google_fonts: ^6.2.1
   google_generative_ai: ^0.4.3
   ionicons: ^0.2.2
+  loading_animation_widget: ^1.2.1
   toggle_switch: ^2.3.0
 
 dev_dependencies:

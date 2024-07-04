@@ -8,7 +8,7 @@ import 'package:resource/app/features/skillup/skills.dart';
 class HomeController extends GetxController {
   List pages = const [
     CoursePage(),
-    SkillsUpPage(),
+    // SkillsUpPage(),
     AskAiPage(),
     SettingsPage()
   ];

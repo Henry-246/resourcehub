@@ -1,13 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:resource/app/features/routes/routes.dart';
 
 class AuthController extends GetxController {
   var isLoading = false.obs;
+  var obscureText = true.obs;
+  var obscureTextConfirm = true.obs;
+  late GetStorage userDetails;
+  final auth = FirebaseAuth.instance;
   var emailController = TextEditingController();
   var usernameController = TextEditingController();
   var passwordController = TextEditingController();
+  var passwordConfirmController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -15,9 +21,25 @@ class AuthController extends GetxController {
     super.onInit();
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user != null) {
-        Get.offAllNamed(AppRoutes.userdetails);
+        userDetails = GetStorage(user.uid);
+        final details = userDetails.read('selections');
+        print(details);
+
+        if (details == null) {
+          Get.offAllNamed(AppRoutes.userdetails);
+        } else {
+          Get.offAllNamed(AppRoutes.home);
+        }
       }
     });
+  }
+
+  void showPassword() {
+    obscureText.value = !obscureText.value;
+  }
+
+  void showConfirmPassword() {
+    obscureTextConfirm.value = !obscureTextConfirm.value;
   }
 
   void signInWithEmailAndPassword() async {

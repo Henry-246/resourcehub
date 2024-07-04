@@ -25,11 +25,11 @@ class HomePage extends GetView<HomeController> {
               label: 'Courses',
               selectedIcon: Icon(Ionicons.grid),
             ),
-            NavigationDestination(
-              icon: Icon(Ionicons.add_outline),
-              label: 'Skill Up',
-              selectedIcon: Icon(Ionicons.add),
-            ),
+            // NavigationDestination(
+            //   icon: Icon(Ionicons.add_outline),
+            //   label: 'Skill Up',
+            //   selectedIcon: Icon(Ionicons.add),
+            // ),
             NavigationDestination(
               icon: Icon(Ionicons.apps_outline),
               label: 'Ask Ai',

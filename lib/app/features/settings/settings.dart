@@ -18,14 +18,14 @@ class _SettingsPageState extends State<SettingsPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Hoem ${user.email}"),
-            Text("Hoem ${user.displayName}"),
+            Text("Home ${user.email}"),
+            Text("Home ${user.displayName}"),
             ElevatedButton(
               onPressed: () async {
                 await FirebaseAuth.instance.signOut();
                 Get.offAllNamed('/');
               },
-              child: Text('Sign Out'),
+              child: const Text('Sign Out'),
             )
           ],
         ),
