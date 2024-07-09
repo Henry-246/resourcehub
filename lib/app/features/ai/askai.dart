@@ -27,18 +27,41 @@ class _AskAiPageState extends State<AskAiPage> {
               controller: controller.scrollController,
               itemCount: controller.aiResponse.length,
               itemBuilder: (context, index) {
-                return Container(
-                  padding: const EdgeInsets.all(10),
-                  margin: const EdgeInsets.all(15),
-                  decoration: BoxDecoration(
-                      color: Get.theme.primaryColor,
-                      borderRadius: BorderRadius.circular(12)),
-                  child: Text(
-                    controller.aiResponse[index],
-                    style: const TextStyle(
-                      color: Colors.white,
+                return Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        margin: const EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                            color: Get.theme.primaryColor,
+                            borderRadius: BorderRadius.circular(12)),
+                        child: Text(
+                          controller.userRequest[index],
+                          style: const TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Container(
+                        padding: const EdgeInsets.all(10),
+                        margin: const EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                            color: Get.theme.primaryColor,
+                            borderRadius: BorderRadius.circular(12)),
+                        child: Text(
+                          controller.aiResponse[index],
+                          style: const TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 );
               },
             ),

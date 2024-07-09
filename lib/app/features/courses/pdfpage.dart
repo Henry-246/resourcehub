@@ -17,7 +17,7 @@ class PdfPage extends StatelessWidget {
         title: Text(name, overflow: TextOverflow.ellipsis),
         centerTitle: true,
       ),
-      body: SfPdfViewer.network(link),
+      body: SfPdfViewer.network(link, ),
     );
   }
 }

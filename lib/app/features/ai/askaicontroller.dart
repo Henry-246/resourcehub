@@ -8,6 +8,7 @@ class AsKAiController extends GetxController {
   final TextEditingController promptController = TextEditingController();
   RxBool isLoading = false.obs;
   List aiResponse = [].obs;
+  List userRequest = [].obs;
   final GetStorage _storage = GetStorage();
   final ScrollController scrollController = ScrollController();
 
@@ -26,6 +27,7 @@ class AsKAiController extends GetxController {
   void askAi() async {
     try {
       isLoading.value = true;
+      userRequest.add(promptController.value.text);
       final model = GenerativeModel(
         model: 'gemini-1.5-flash-latest',
         apiKey: Keys.apikey,
@@ -48,11 +50,14 @@ class AsKAiController extends GetxController {
 
   void saveResponses() {
     _storage.write('response', aiResponse);
+    _storage.write('userRequest', userRequest);
   }
 
   void loadItems() {
     List storedItems = _storage.read('response')?.cast<String>() ?? [];
+    List storedUserRequest = _storage.read('userRequest')?.cast<String>() ?? [];
     aiResponse.addAll(storedItems);
+    userRequest.addAll(storedUserRequest);
   }
 
   void scrollToBottom() {
