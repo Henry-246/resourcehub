@@ -31,7 +31,7 @@ class CourseController extends GetxController {
     isLoading.value = true;
     try {
       QuerySnapshot snapshot = await firestore
-          .collection('courses')
+          .collection('computerScience')
           .where('programme', isEqualTo: programme)
           .where('level', isEqualTo: level)
           .where('semester', isEqualTo: semester)

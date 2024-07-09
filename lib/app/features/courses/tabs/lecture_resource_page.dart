@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:resource/app/features/courses/pdfpage.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class LectureResourcePage extends StatefulWidget {
   final List lectureResource;
@@ -17,32 +20,54 @@ class _LectureResourcePageState extends State<LectureResourcePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: const PDF().fromUrl(
-            'https://drive.usercontent.google.com/download?id=1wcvVBCO38YwOuh3JVflHRMUThfmG_O-u&export=download&authuser=0&confirm=t&uuid=415fa710-31bf-4b6f-a29f-a9acb15d00cb&at=APZUnTXHv5t82FThOMHib3Dk6ghZ:1720112178712'));
-    // return Scaffold(
-    //   body: ListView.builder(
-    //     itemCount: widget.lectureResource.length,
-    //     itemBuilder: (context, index) {
-    //       var lecture = widget.lectureResource[index];
-    //       return Column(
-    //         children: [
-    //           ListTile(
-    //             title: Text(
-    //               lecture['name'],
-    //               style: TextStyle(
-    //                 fontSize: 25,
-    //               ),
-    //             ),
-    //             leading: Icon(Ionicons.document, size: 35),
-    //           ),
-    //           Divider(
-    //             color: Colors.black38,
-    //             thickness: 2,
-    //           )
-    //         ],
-    //       );
-    //     },
-    //   ),
-    // );
+      body: ListView.builder(
+        itemCount: widget.lectureResource.length,
+        itemBuilder: (context, index) {
+          var lecture = widget.lectureResource[index];
+          return Column(
+            children: [
+              ListTile(
+                title: Text(
+                  lecture['name'],
+                  style: const TextStyle(
+                    fontSize: 23,
+                  ),
+                ),
+                leading: const Icon(Ionicons.document, size: 35),
+                onTap: () {
+                  Get.dialog(
+                    AlertDialog(
+                      title: const Text('Download or Open'),
+                      content: SizedBox(
+                        height: 100,
+                        child: Column(
+                          children: [
+                            ElevatedButton(
+                                onPressed: () {},
+                                child: const Text("Download")),
+                            ElevatedButton(
+                                onPressed: () {
+                                  Get.to(() => PdfPage(
+                                      name: lecture['name'],
+                                      link: lecture['link']));
+                                },
+                                child: const Text("Open")),
+                          ],
+                        ),
+                      ),
+                     
+                    ),
+                  );
+                },
+              ),
+              const Divider(
+                color: Colors.black38,
+                thickness: 2,
+              )
+            ],
+          );
+        },
+      ),
+    );
   }
 }

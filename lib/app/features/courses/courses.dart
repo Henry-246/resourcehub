@@ -116,17 +116,18 @@ class _CoursePageState extends State<CoursePage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CachedNetworkImage(
+                        fit: BoxFit.contain,
                         placeholder: (context, url) =>
                             LoadingAnimationWidget.dotsTriangle(
                           color: Colors.blue,
                           size: 30,
                         ),
                         imageUrl: course['image'],
-                        width: 300,
-                        height: 300,
+                        width: 150,
+                        height: 150,
                       ),
                       Text(course['name'],
-                          style: const TextStyle(fontSize: 20)),
+                          style: const TextStyle(fontSize: 18)),
                     ],
                   ),
                 ),

@@ -43,15 +43,28 @@ class UserDetailsController extends GetxController {
   void fetcheCourseName() async {
     isLoading.value = true;
     try {
-      QuerySnapshot snapshot =
-          await FirebaseFirestore.instance.collection('courses').get();
-      Set<String> fetchedNames = {};
+      DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance.collection('programme').doc('programmeList').get();
+     
+        if (documentSnapshot.exists && documentSnapshot.data() != null) {
+        var data = documentSnapshot.data() as Map<String, dynamic>;
+        if(data.containsKey('courses')){
+          List fetchedCourses = data['courses'];
+          programmeName.value = List.from(fetchedCourses);
+        }else{
+          Get.snackbar('Error', 'The "programme" field does not exist.');
+        }
+        }else{
+          Get.snackbar('Error', 'The "programme" field does not exist.');
+        }
+      // QuerySnapshot snapshot =
+      //     await FirebaseFirestore.instance.collection('courses').get();
+      // Set<String> fetchedNames = {};
 
-      for (var document in snapshot.docs) {
-        fetchedNames.add(document['programme']);
-      }
+      // for (var document in snapshot.docs) {
+      //   fetchedNames.add(document['programme']);
+      // }
 
-      programmeName.value = fetchedNames.toList();
+      // programmeName.value = fetchedNames.toList();
     } catch (e) {
       Get.snackbar('Error', 'Try again');
     } finally {
