@@ -118,7 +118,7 @@ class RegisterPage extends GetView<AuthController> {
                                     controller.passwordConfirmController,
                                 decoration: InputDecoration(
                                   labelText: 'Confirm Password',
-                                  border: OutlineInputBorder(),
+                                  border: const OutlineInputBorder(),
                                   suffixIcon: IconButton(
                                     onPressed: () {
                                       controller.showConfirmPassword();

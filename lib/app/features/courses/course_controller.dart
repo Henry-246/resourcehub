@@ -23,13 +23,17 @@ class CourseController extends GetxController {
     programme = details['course'];
     level = details['level'];
     semester = details['semester'];
-    fetchCourses();
+    if(programme.isNotEmpty){
+      fetchCourses();
+    }
+    
     super.onInit();
   }
 
   Future<void> fetchCourses() async {
     isLoading.value = true;
-    try {
+    if (programme == "Computer Science") {
+      try {
       QuerySnapshot snapshot = await firestore
           .collection('computerScience')
           .where('programme', isEqualTo: programme)
@@ -42,6 +46,22 @@ class CourseController extends GetxController {
       Get.snackbar('Error', 'Failed to load courses');
     } finally {
       isLoading.value = false;
+    }
+    }else{
+      try {
+      QuerySnapshot snapshot = await firestore
+          .collection(programme)
+          .where('programme', isEqualTo: programme)
+          .where('level', isEqualTo: level)
+          .where('semester', isEqualTo: semester)
+          .get();
+
+      courses.value = snapshot.docs;
+    } catch (e) {
+      Get.snackbar('Error', 'Failed to load courses');
+    } finally {
+      isLoading.value = false;
+    }
     }
   }
 }

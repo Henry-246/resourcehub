@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:resource/app/features/auth/controllers/auth_controller.dart';
+import 'package:resource/app/features/forgot_password.dart';
 
 class AuthPage extends GetView<AuthController> {
   const AuthPage({super.key});
@@ -133,6 +134,12 @@ class AuthPage extends GetView<AuthController> {
                             onPressed: controller.navigateToRegister,
                             child:
                                 const Text("Don't have an account? Register"),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              Get.to(() => const ForgotPasswordPage());
+                            },
+                            child: Text('Forgot Password?'),
                           ),
                         ],
                       ),

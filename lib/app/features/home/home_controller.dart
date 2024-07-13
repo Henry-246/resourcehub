@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:resource/app/features/ai/askai.dart';
 import 'package:resource/app/features/courses/courses.dart';
 import 'package:resource/app/features/settings/settings.dart';
-import 'package:resource/app/features/skillup/skills.dart';
 
 class HomeController extends GetxController {
   List pages = const [

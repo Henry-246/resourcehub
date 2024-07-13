@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resource/app/features/courses/course_controller.dart';
 import 'package:resource/app/features/courses/resourcepage.dart';
@@ -17,8 +16,11 @@ class CoursePage extends StatefulWidget {
 
 class _CoursePageState extends State<CoursePage> {
   final CourseController controller = Get.put(CourseController());
+
+
   @override
   Widget build(BuildContext context) {
+    var screenwidth = MediaQuery.of(context).size.width;
     return Obx(() {
       String name = controller.isLoading.value ? '' : controller.programme;
       if (controller.isLoading.value) {
@@ -34,8 +36,8 @@ class _CoursePageState extends State<CoursePage> {
           appBar: AppBar(
             title: Text(
               name,
-              style: const TextStyle(
-                fontSize: 30,
+              style:  TextStyle(
+                fontSize: screenwidth * 0.07,
               ),
             ),
             leading: GestureDetector(
@@ -43,17 +45,20 @@ class _CoursePageState extends State<CoursePage> {
                 Get.toNamed(AppRoutes.userdetails);
               },
               child: Container(
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: Colors.black45,
-                      width: 2,
-                    )),
-                child: const Icon(
-                  Icons.edit,
-                  size: 40,
-                ),
+              margin: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: Colors.black45,
+                    width: 2,
+                    
+                  )),
+              child:  Icon(
+                Icons.edit,
+                size: screenwidth * 0.065,
               ),
+              
+            ),
             ),
             centerTitle: true,
             backgroundColor: Colors.blue.shade200,
@@ -68,8 +73,8 @@ class _CoursePageState extends State<CoursePage> {
         appBar: AppBar(
           title: Text(
             controller.isLoading.value ? '' : controller.programme,
-            style: const TextStyle(
-              fontSize: 30,
+            style:  TextStyle(
+              fontSize: screenwidth * 0.07,
             ),
           ),
           leading: GestureDetector(
@@ -77,16 +82,19 @@ class _CoursePageState extends State<CoursePage> {
               Get.toNamed(AppRoutes.userdetails);
             },
             child: Container(
+              margin: const EdgeInsets.all(10),
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
                     color: Colors.black45,
                     width: 2,
+                    
                   )),
-              child: const Icon(
+              child:  Icon(
                 Icons.edit,
-                size: 40,
+                size: screenwidth * 0.065,
               ),
+              
             ),
           ),
           centerTitle: true,
@@ -108,6 +116,8 @@ class _CoursePageState extends State<CoursePage> {
                     () => ResourcePage(
                       coursename: course['name'],
                       lectureResource: course['lectures'],
+                      youtubeResource: course['youtube'],
+                      pastQuestion: course['question'],
                     ),
                   );
                 },
@@ -123,11 +133,11 @@ class _CoursePageState extends State<CoursePage> {
                           size: 30,
                         ),
                         imageUrl: course['image'],
-                        width: 150,
-                        height: 150,
+                        width: screenwidth * 0.3,
+                        height: screenwidth * 0.3,
                       ),
                       Text(course['name'],
-                          style: const TextStyle(fontSize: 18)),
+                          style:  TextStyle(fontSize: screenwidth * 0.035)),
                     ],
                   ),
                 ),

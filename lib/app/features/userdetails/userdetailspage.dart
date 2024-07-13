@@ -3,7 +3,6 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:resource/app/features/routes/routes.dart';
 import 'package:resource/app/features/userdetails/userdetailscontroller.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 

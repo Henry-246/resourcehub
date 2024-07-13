@@ -7,7 +7,6 @@ import 'package:resource/app/features/auth/Bindings/authbindings.dart';
 import 'package:resource/app/features/home/home_bindings.dart';
 import 'package:resource/app/features/routes/pages.dart';
 import 'package:resource/app/features/routes/routes.dart';
-import 'package:resource/app/features/userdetails/userdetailsbinding.dart';
 import 'package:resource/firebase_options.dart';
 
 void main() async {
@@ -22,16 +21,16 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  @override
+  @override 
   Widget build(BuildContext context) {
-    bool isAuthenticated = FirebaseAuth.instance.currentUser != null;
+    bool isAuthenticated = FirebaseAuth.instance.currentUser != null;                                                                                                                                                                                          
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      useInheritedMediaQuery: true,
+      useInheritedMediaQuery: true, 
       getPages: AppPages.pages,
       initialRoute: isAuthenticated ? AppRoutes.home : AppRoutes.auth,
       initialBinding: isAuthenticated ? HomeBindings() : AuthBindings(),
       themeMode: ThemeMode.dark,
-    ); 
+    );
   }
 }

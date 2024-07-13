@@ -44,7 +44,10 @@ dependencies:
   loading_animation_widget: ^1.2.1
   syncfusion_flutter_pdfviewer: ^26.1.40
   toggle_switch: ^2.3.0
-
+  webview_flutter: ^4.8.0
+  youtube_explode_dart: ^2.2.1
+  youtube_player_iframe: ^5.1.3
+  
 dev_dependencies:
   flutter_lints: ^4.0.0
   flutter_test:

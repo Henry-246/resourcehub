@@ -2,15 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:resource/app/features/courses/tabs/lecture_resource_page.dart';
+import 'package:resource/app/features/courses/tabs/question_resource_page.dart';
+import 'package:resource/app/features/courses/tabs/youtube_resource_page.dart';
 import 'package:resource/app/neumorphic.dart';
 
 class ResourcePage extends StatefulWidget {
   final String coursename;
   final List lectureResource;
+  final List youtubeResource;
+  final List pastQuestion;
   const ResourcePage({
     super.key,
     required this.coursename,
     required this.lectureResource,
+    required this.youtubeResource,
+    required this.pastQuestion,
   });
 
   @override
@@ -18,8 +24,10 @@ class ResourcePage extends StatefulWidget {
 }
 
 class _ResourcePageState extends State<ResourcePage> {
+
   @override
   Widget build(BuildContext context) {
+    var screenwidth = MediaQuery.of(context).size.width;
     return DefaultTabController(
       length: 3,
       child: Scaffold(
@@ -48,8 +56,8 @@ class _ResourcePageState extends State<ResourcePage> {
                     Expanded(
                       child: Text(
                         widget.coursename,
-                        style: const TextStyle(
-                          fontSize: 32,
+                        style:  TextStyle(
+                          fontSize: screenwidth * 0.07,
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -81,8 +89,12 @@ class _ResourcePageState extends State<ResourcePage> {
                     LectureResourcePage(
                       lectureResource: widget.lectureResource,
                     ),
-                    Container(color: Colors.blue),
-                    Container(color: Colors.yellow),
+                    YoutubeResourcePage(
+                      youtubeResource: widget.youtubeResource,
+                    ),
+                    QuestionResourcePage(
+                      questionResource: widget.pastQuestion,
+                    )
                   ],
                 ),
               ),
