@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
@@ -51,26 +50,27 @@ class _VideoPageState extends State<VideoPage> {
 
     
     return Scaffold(
-      // appBar: AppBar(),
-      body: Expanded(
+      body: SafeArea(
         child: YoutubePlayerScaffold(
-          controller: _controller,
-          // aspectRatio: 20 / 13,
-          builder: (context, player) {
-            return Column(
-              children: [
-                player,
-                ElevatedButton(
-                    onPressed: () {
-                      _controller.exitFullScreen();
-                      Get.back();
-                    },
-                    child: const Text('Go back')),
-                // ElevatedButton(
-                //     onPressed: () {}, child: const Text('Visit Channel')),
-              ],
-            );
-          },
+              controller: _controller,
+              // aspectRatio: 20 / 13,
+              builder: (context, player) {
+                return Column(
+                  children: [
+                    player,
+                    ElevatedButton(
+                        onPressed: () {
+                          _controller.exitFullScreen();
+                          Get.back();
+                        },
+                        child: const Text('Go back')),
+                    // ElevatedButton(
+                    //     onPressed: () {}, child: const Text('Visit Channel')),
+                  ],
+                );
+              },
+            
+        
         ),
       ),
     );

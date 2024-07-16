@@ -16,13 +16,12 @@ class HomePage extends GetView<HomeController> {
           onDestinationSelected: (value) {
             controller.changeActivePage(value);
           },
-          labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
           height: 100,
           destinations: const [
             NavigationDestination(
-              icon: Icon(Ionicons.grid_outline),
+              icon: Icon(Ionicons.folder_outline),
               label: 'Courses',
-              selectedIcon: Icon(Ionicons.grid),
+              selectedIcon: Icon(Ionicons.folder),
             ),
             // NavigationDestination(
             //   icon: Icon(Ionicons.add_outline),
@@ -30,9 +29,9 @@ class HomePage extends GetView<HomeController> {
             //   selectedIcon: Icon(Ionicons.add),
             // ),
             NavigationDestination(
-              icon: Icon(Ionicons.apps_outline),
+              icon: Icon(Ionicons.bulb_outline),
               label: 'Ask Ai',
-              selectedIcon: Icon(Ionicons.apps),
+              selectedIcon: Icon(Ionicons.bulb),
             ),
             NavigationDestination(
               icon: Icon(Ionicons.settings_outline),

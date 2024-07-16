@@ -1,6 +1,11 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:resource/app/features/courses/download.dart';
 import 'package:resource/app/features/courses/pdfpage.dart';
 
 class LectureResourcePage extends StatefulWidget {
@@ -15,6 +20,34 @@ class LectureResourcePage extends StatefulWidget {
 }
 
 class _LectureResourcePageState extends State<LectureResourcePage> {
+
+  Future<void> downloadPdf(String url, String filename) async{
+    Dio dio = Dio();
+    try {
+    // Get the application documents directory
+    Directory appDocDir = await getApplicationDocumentsDirectory();
+    String savePath = "${appDocDir.path}/$filename";
+
+    // Download the file
+    var response = await dio.download(
+      url,
+      savePath,
+      onReceiveProgress: (received, total) {
+        if (total != -1) {
+          print("Downloading: ${(received / total * 100).toStringAsFixed(0)}%");
+        }
+      },
+    );
+
+    if (response.statusCode == 200) {
+      print("File saved to: $savePath");
+    } else {
+      print("Failed to download file");
+    }
+  } catch (e) {
+    print("Error: $e");
+  }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,43 +61,48 @@ class _LectureResourcePageState extends State<LectureResourcePage> {
                 var lecture = widget.lectureResource[index];
                 return Column(
                   children: [
-                    ListTile(
-                      title: Text(
-                        lecture['name'],
-                        style: const TextStyle(
-                          fontSize: 23,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ListTile(
+                        title: Text(
+                          lecture['name'],
+                          style: const TextStyle(
+                            fontSize: 23,
+                          ),
                         ),
-                      ),
-                      leading: const Icon(Ionicons.document, size: 35),
-                      onTap: () {
-                        Get.dialog(
-                          AlertDialog(
-                            title: const Text('Download or Open'),
-                            content: SizedBox(
-                              height: 100,
-                              child: Column(
-                                children: [
-                                  ElevatedButton(
-                                      onPressed: () {},
-                                      child: const Text("Download")),
-                                  ElevatedButton(
-                                      onPressed: () {
-                                        Get.to(() => PdfPage(
-                                            name: lecture['name'],
-                                            link: lecture['link']));
-                                      },
-                                      child: const Text("Open")),
-                                ],
+                        leading: const Icon(Ionicons.document, size: 35),
+                        onTap: () {
+                          Get.dialog(
+                            AlertDialog(
+                              title: const Text('Download or Open'),
+                              content: SizedBox(
+                                height: 100,
+                                child: Column(
+                                  children: [
+                                    ElevatedButton(
+                                        onPressed: () async {
+                                          Get.to(()=> DownloadPdfPage(url: lecture['link']));
+                                        },
+                                        child: const Text("Download")),
+                                    ElevatedButton(
+                                        onPressed: () {
+                                          Get.to(() => PdfPage(
+                                              name: lecture['name'],
+                                              link: lecture['link']));
+                                        },
+                                        child: const Text("Open")),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      },
+                          );
+                        },
+                      ),
                     ),
-                    const Divider(
-                      color: Colors.black38,
-                      thickness: 2,
-                    )
+                    // const Divider(
+                    //   color: Colors.black38,
+                    //   thickness: 2,
+                    // )
                   ],
                 );
               },
