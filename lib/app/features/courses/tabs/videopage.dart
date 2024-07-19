@@ -47,30 +47,26 @@ class _VideoPageState extends State<VideoPage> {
 
   @override
   Widget build(BuildContext context) {
-
-    
     return Scaffold(
       body: SafeArea(
         child: YoutubePlayerScaffold(
-              controller: _controller,
-              // aspectRatio: 20 / 13,
-              builder: (context, player) {
-                return Column(
-                  children: [
-                    player,
-                    ElevatedButton(
-                        onPressed: () {
-                          _controller.exitFullScreen();
-                          Get.back();
-                        },
-                        child: const Text('Go back')),
-                    // ElevatedButton(
-                    //     onPressed: () {}, child: const Text('Visit Channel')),
-                  ],
-                );
-              },
-            
-        
+          controller: _controller,
+          // aspectRatio: 20 / 13,
+          builder: (context, player) {
+            return Column(
+              children: [
+                player,
+                ElevatedButton(
+                    onPressed: () {
+                      _controller.exitFullScreen();
+                      Get.back();
+                    },
+                    child: const Text('Go back')),
+                // ElevatedButton(
+                //     onPressed: () {}, child: const Text('Visit Channel')),
+              ],
+            );
+          },
         ),
       ),
     );

@@ -20,34 +20,8 @@ class LectureResourcePage extends StatefulWidget {
 }
 
 class _LectureResourcePageState extends State<LectureResourcePage> {
+  
 
-  Future<void> downloadPdf(String url, String filename) async{
-    Dio dio = Dio();
-    try {
-    // Get the application documents directory
-    Directory appDocDir = await getApplicationDocumentsDirectory();
-    String savePath = "${appDocDir.path}/$filename";
-
-    // Download the file
-    var response = await dio.download(
-      url,
-      savePath,
-      onReceiveProgress: (received, total) {
-        if (total != -1) {
-          print("Downloading: ${(received / total * 100).toStringAsFixed(0)}%");
-        }
-      },
-    );
-
-    if (response.statusCode == 200) {
-      print("File saved to: $savePath");
-    } else {
-      print("Failed to download file");
-    }
-  } catch (e) {
-    print("Error: $e");
-  }
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,30 +46,36 @@ class _LectureResourcePageState extends State<LectureResourcePage> {
                         ),
                         leading: const Icon(Ionicons.document, size: 35),
                         onTap: () {
-                          Get.dialog(
-                            AlertDialog(
-                              title: const Text('Download or Open'),
-                              content: SizedBox(
-                                height: 100,
-                                child: Column(
-                                  children: [
-                                    ElevatedButton(
-                                        onPressed: () async {
-                                          Get.to(()=> DownloadPdfPage(url: lecture['link']));
-                                        },
-                                        child: const Text("Download")),
-                                    ElevatedButton(
-                                        onPressed: () {
-                                          Get.to(() => PdfPage(
-                                              name: lecture['name'],
-                                              link: lecture['link']));
-                                        },
-                                        child: const Text("Open")),
-                                  ],
-                                ),
-                              ),
+                          Get.to(
+                            () => PdfPage(
+                              name: lecture['name'],
+                              link: lecture['link'],
                             ),
                           );
+                          // Get.dialog(
+                          //   AlertDialog(
+                          //     title: const Text('Download or Open'),
+                          //     content: SizedBox(
+                          //       height: 100,
+                          //       child: Column(
+                          //         children: [
+                          //           ElevatedButton(
+                          //               onPressed: () async {
+                          //                 Get.to(()=> DownloadPdfPage(url: lecture['link']));
+                          //               },
+                          //               child: const Text("Download")),
+                          //           ElevatedButton(
+                          //               onPressed: () {
+                          //                 Get.to(() => PdfPage(
+                          //                     name: lecture['name'],
+                          //                     link: lecture['link']));
+                          //               },
+                          //               child: const Text("Open")),
+                          //         ],
+                          //       ),
+                          //     ),
+                          //   ),
+                          // );
                         },
                       ),
                     ),

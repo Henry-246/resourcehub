@@ -13,12 +13,10 @@ class QuestionResourcePage extends StatefulWidget {
 }
 
 class _QuestionResourcePageState extends State<QuestionResourcePage> {
- 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      body:  widget.questionResource.isEmpty
+      body: widget.questionResource.isEmpty
           ? const Center(
               child: Text(
                 'No resources available',
@@ -42,32 +40,38 @@ class _QuestionResourcePageState extends State<QuestionResourcePage> {
                         ),
                         leading: const Icon(Ionicons.document, size: 35),
                         onTap: () {
-                          Get.dialog(
-                            AlertDialog(
-                              title: const Text('Download or Open'),
-                              content: SizedBox(
-                                height: 100,
-                                child: Column(
-                                  children: [
-                                    ElevatedButton(
-                                      onPressed: () {
-                                       Get.to(()=> DownloadPdfPage(url: question['link']));
-                                      },
-                                      child: const Text("Download"),
-                                    ),
-                                    ElevatedButton(
-                                      onPressed: () {
-                                        Get.to(() => PdfPage(
-                                            name: question['name'],
-                                            link: question['link']));
-                                      },
-                                      child: const Text("Open"),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                          Get.to(
+                            () => PdfPage(
+                              name: question['name'],
+                              link: question['link'],
                             ),
                           );
+                          // Get.dialog(
+                          //   AlertDialog(
+                          //     title: const Text('Download or Open'),
+                          //     content: SizedBox(
+                          //       height: 100,
+                          //       child: Column(
+                          //         children: [
+                          //           ElevatedButton(
+                          //             onPressed: () {
+                          //              Get.to(()=> DownloadPdfPage(url: question['link']));
+                          //             },
+                          //             child: const Text("Download"),
+                          //           ),
+                          //           ElevatedButton(
+                          //             onPressed: () {
+                          //               Get.to(() => PdfPage(
+                          //                   name: question['name'],
+                          //                   link: question['link']));
+                          //             },
+                          //             child: const Text("Open"),
+                          //           ),
+                          //         ],
+                          //       ),
+                          //     ),
+                          //   ),
+                          // );
                         },
                       ),
                     ),

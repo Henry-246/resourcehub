@@ -12,8 +12,8 @@ class CourseController extends GetxController {
   RxBool isLoading = false.obs;
 
   String programme = '';
-  late String level;
-  late String semester;
+  String level = '';
+  String semester = '';
 
   @override
   void onInit() async {

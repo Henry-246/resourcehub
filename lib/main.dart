@@ -21,12 +21,12 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  @override 
+  @override
   Widget build(BuildContext context) {
-    bool isAuthenticated = FirebaseAuth.instance.currentUser != null;                                                                                                                                                                                          
+    bool isAuthenticated = FirebaseAuth.instance.currentUser != null;
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      useInheritedMediaQuery: true, 
+      useInheritedMediaQuery: true,
       getPages: AppPages.pages,
       initialRoute: isAuthenticated ? AppRoutes.home : AppRoutes.auth,
       initialBinding: isAuthenticated ? HomeBindings() : AuthBindings(),

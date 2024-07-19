@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:resource/app/features/ai/askaicontroller.dart';
@@ -16,6 +18,7 @@ class _AskAiPageState extends State<AskAiPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: const Text('Ask Ai'),
       ),
@@ -35,13 +38,13 @@ class _AskAiPageState extends State<AskAiPage> {
                         padding: const EdgeInsets.all(10),
                         margin: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
-                            color: Get.theme.primaryColor,
+                            color: Colors.black87,
                             borderRadius: BorderRadius.circular(12)),
                         child: Text(
                           controller.userRequest[index],
-                          style: const TextStyle(
+                          style: GoogleFonts.ubuntu(
                             color: Colors.white,
-                          ),
+                          )
                         ),
                       ),
                     ),
@@ -51,13 +54,13 @@ class _AskAiPageState extends State<AskAiPage> {
                         padding: const EdgeInsets.all(10),
                         margin: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
-                            color: Get.theme.primaryColor,
+                            color: Colors.black54,
                             borderRadius: BorderRadius.circular(12)),
                         child: Text(
                           controller.aiResponse[index],
-                          style: const TextStyle(
+                          style: GoogleFonts.ubuntu(
                             color: Colors.white,
-                          ),
+                          )
                         ),
                       ),
                     ),
@@ -75,6 +78,23 @@ class _AskAiPageState extends State<AskAiPage> {
               decoration: InputDecoration(
                 border: const OutlineInputBorder(),
                 hintText: "Ask Ai anything..",
+                prefixIcon: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: const Icon(Ionicons.camera),
+                      onPressed: () {
+                        controller.pickImage(ImageSource.camera);
+                      },
+                    ),
+                    IconButton(
+                      icon: const Icon(Ionicons.image),
+                      onPressed: () {
+                        controller.pickImage(ImageSource.gallery);
+                      },
+                    ),
+                  ],
+                ),
                 suffixIcon: Obx(
                   () => IconButton(
                     onPressed:

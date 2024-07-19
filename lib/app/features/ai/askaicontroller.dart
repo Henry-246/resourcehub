@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:resource/keys.dart';
 
 class AsKAiController extends GetxController {
@@ -11,6 +14,10 @@ class AsKAiController extends GetxController {
   List userRequest = [].obs;
   final GetStorage _storage = GetStorage();
   final ScrollController scrollController = ScrollController();
+
+  final ImagePicker picker = ImagePicker();
+  XFile? image;
+  File? fileImage;
 
   @override
   void onInit() {
@@ -32,10 +39,16 @@ class AsKAiController extends GetxController {
         model: 'gemini-1.5-flash-latest',
         apiKey: Keys.apikey,
       );
-
       final prompt = promptController.text;
-      final content = [Content.text(prompt)];
-      final response = await model.generateContent(content);
+      final chat = model.startChat(history: [
+        Content.text(aiResponse.isNotEmpty ? aiResponse.last : ""),
+        Content.model(
+            [TextPart('Great to meet you. What would you like to know?')])
+      ]);
+
+      final content = Content.text(prompt);
+      // final response = await model.generateContent(content);
+      var response = await chat.sendMessage(content);
       if (response.text!.isNotEmpty) {
         aiResponse.add(response.text);
         scrollToBottom();
@@ -72,5 +85,22 @@ class AsKAiController extends GetxController {
         }
       },
     );
+  }
+
+  Future pickImage(ImageSource source)async {
+    try {
+      image = await picker.pickImage(source: source);
+      if (image == null) return;
+      final tmpImage = File(image!.path);
+      fileImage = tmpImage;
+      Get.snackbar("Success", 'Image uploaded', backgroundColor: Colors.green);
+    } catch (e) {
+      Get.snackbar(
+        "Error",
+        "Failed to pick image, make sure permission to access gallery is granted",
+        backgroundColor: Colors.red,
+        duration: const Duration(seconds: 5),
+      );
+    }
   }
 }

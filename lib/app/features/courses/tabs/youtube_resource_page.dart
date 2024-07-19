@@ -26,20 +26,19 @@ class _YoutubeResourcePageState extends State<YoutubeResourcePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
-        itemCount: widget.youtubeResource.length,
-        itemBuilder: (context, index) {
-          var video = widget.youtubeResource[index];
-          return ListTile(
-            title: Text(video['name']),
-            onTap: () {
-              Get.to(()=> VideoPage(url: video['link']));
-            },
-          );
-        },
-      )
-      
-    );
+        body: widget.youtubeResource.isEmpty
+            ? const Center(child: Text("No Videos at the moment"))
+            : ListView.builder(
+                itemCount: widget.youtubeResource.length,
+                itemBuilder: (context, index) {
+                  var video = widget.youtubeResource[index];
+                  return ListTile(
+                    title: Text(video['name']),
+                    onTap: () {
+                      Get.to(() => VideoPage(url: video['link']));
+                    },
+                  );
+                },
+              ));
   }
 }
-
