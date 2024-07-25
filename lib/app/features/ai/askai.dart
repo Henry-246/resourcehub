@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,50 +27,99 @@ class _AskAiPageState extends State<AskAiPage> {
       body: Column(
         children: [
           Expanded(
-              child: Obx(
-            () => ListView.builder(
-              controller: controller.scrollController,
-              itemCount: controller.aiResponse.length,
-              itemBuilder: (context, index) {
-                return Column(
-                  children: [
-                    Align(
-                      alignment: Alignment.centerRight,
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        margin: const EdgeInsets.all(15),
-                        decoration: BoxDecoration(
-                            color: Colors.black87,
-                            borderRadius: BorderRadius.circular(12)),
-                        child: Text(
-                          controller.userRequest[index],
-                          style: GoogleFonts.ubuntu(
-                            color: Colors.white,
-                          )
+            flex: 8,
+            child: Obx(
+              () => ListView.builder(
+                controller: controller.scrollController,
+                itemCount: controller.aiResponse.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          margin: const EdgeInsets.all(15),
+                          decoration: BoxDecoration(
+                              color: Colors.black87,
+                              borderRadius: BorderRadius.circular(12)),
+                          child: Text(controller.userRequest[index],
+                              style: GoogleFonts.ubuntu(
+                                color: Colors.white,
+                              )),
                         ),
                       ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        padding: const EdgeInsets.all(10),
-                        margin: const EdgeInsets.all(15),
-                        decoration: BoxDecoration(
-                            color: Colors.black54,
-                            borderRadius: BorderRadius.circular(12)),
-                        child: Text(
-                          controller.aiResponse[index],
-                          style: GoogleFonts.ubuntu(
-                            color: Colors.white,
-                          )
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          margin: const EdgeInsets.all(15),
+                          decoration: BoxDecoration(
+                              color: Colors.black54,
+                              borderRadius: BorderRadius.circular(12)),
+                          child: Text(controller.aiResponse[index],
+                              style: GoogleFonts.ubuntu(
+                                color: Colors.white,
+                              )),
                         ),
                       ),
-                    ),
-                  ],
-                );
-              },
+                    ],
+                  );
+                },
+              ),
             ),
-          )),
+          ),
+          Obx(
+            () => controller.hasImage.value != null
+                ? Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 12.0),
+                      child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Stack(
+                            children: [
+                              Container(
+                                width: 50,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(16),
+                                  color: Colors.grey[300],
+                                ),
+                                child: Image.file(
+                                  controller.fileImage ?? File(''),
+                                  fit: BoxFit.cover,
+                                  width: 50,
+                                ),
+                              ),
+                              Positioned(
+                                top: 0,
+                                right: 0,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    // Handle the close button tap event here
+                                    print("hello");
+                                    controller.clearFile(); // Example action
+                                  },
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                      color: Colors
+                                          .red, // Background color for the close button
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: const Icon(
+                                      Icons.close,
+                                      color: Colors
+                                          .white, // Color of the close icon
+                                      size: 16,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                    ),
+                  )
+                : Container(),
+          ),
           Container(
             padding: const EdgeInsets.all(12),
             child: TextField(

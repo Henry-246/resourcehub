@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,6 +20,8 @@ class AsKAiController extends GetxController {
   XFile? image;
   File? fileImage;
 
+  var hasImage = Rxn<File>();
+
   @override
   void onInit() {
     loadItems();
@@ -31,33 +34,71 @@ class AsKAiController extends GetxController {
     super.onClose();
   }
 
+  void setFile(File? file) {
+    hasImage.value = file;
+  }
+
+  // Method to clear the file
+  void clearFile() {
+    hasImage.value = null;
+  }
+
   void askAi() async {
     try {
       isLoading.value = true;
-      userRequest.add(promptController.value.text);
+      // userRequest.add(promptController.value.text);
       final model = GenerativeModel(
         model: 'gemini-1.5-flash-latest',
         apiKey: Keys.apikey,
       );
-      final prompt = promptController.text;
+      final prompt = promptController.text.trim();
       final chat = model.startChat(history: [
         Content.text(aiResponse.isNotEmpty ? aiResponse.last : ""),
         Content.model(
             [TextPart('Great to meet you. What would you like to know?')])
       ]);
-
-      final content = Content.text(prompt);
-      // final response = await model.generateContent(content);
-      var response = await chat.sendMessage(content);
-      if (response.text!.isNotEmpty) {
-        aiResponse.add(response.text);
-        scrollToBottom();
-        saveResponses();
-        promptController.clear();
-        isLoading.value = false;
+      final imageBytes = await hasImage.value?.readAsBytes();
+      GenerateContentResponse response;
+      if (hasImage.value != null) {
+        final content = [
+          Content.multi(
+            [TextPart(prompt), DataPart('image/jpeg', imageBytes!)],
+          ),
+        ];
+        response = await model.generateContent(content);
+        if (response.text!.isNotEmpty) {
+          userRequest.add(promptController.value.text);
+          aiResponse.add(response.text);
+          scrollToBottom();
+          saveResponses();
+          promptController.clear();
+          isLoading.value = false;
+        }
+        clearFile();
+      } else {
+        final content = Content.text(prompt);
+        response = await chat.sendMessage(content);
+        if (response.text!.isNotEmpty) {
+          userRequest.add(promptController.value.text);
+          aiResponse.add(response.text);
+          scrollToBottom();
+          saveResponses();
+          promptController.clear();
+          isLoading.value = false;
+        }
+        print(userRequest);
       }
+
+      // if (response.text!.isNotEmpty) {
+      //   aiResponse.add(response.text);
+      //   scrollToBottom();
+      //   saveResponses();
+      //   promptController.clear();
+      //   isLoading.value = false;
+      // }
     } catch (e) {
       Get.snackbar('Error', 'Try again');
+      isLoading.value = false;
     }
   }
 
@@ -87,12 +128,13 @@ class AsKAiController extends GetxController {
     );
   }
 
-  Future pickImage(ImageSource source)async {
+  Future pickImage(ImageSource source) async {
     try {
       image = await picker.pickImage(source: source);
       if (image == null) return;
       final tmpImage = File(image!.path);
       fileImage = tmpImage;
+      setFile(fileImage);
       Get.snackbar("Success", 'Image uploaded', backgroundColor: Colors.green);
     } catch (e) {
       Get.snackbar(

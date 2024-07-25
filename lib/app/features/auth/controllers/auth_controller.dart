@@ -47,7 +47,7 @@ class AuthController extends GetxController {
       isLoading.value = true;
       try {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text,
+          email: emailController.text.trim(),
           password: passwordController.text,
         );
 
