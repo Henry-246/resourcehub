@@ -86,7 +86,6 @@ class AsKAiController extends GetxController {
           promptController.clear();
           isLoading.value = false;
         }
-        print(userRequest);
       }
 
       // if (response.text!.isNotEmpty) {
