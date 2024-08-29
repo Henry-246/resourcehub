@@ -15,6 +15,7 @@ class CourseCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenwidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: onTap,
       child: Padding(
@@ -34,15 +35,15 @@ class CourseCard extends StatelessWidget {
             children: [
               Positioned(
                 top: 10,
-                left: 10,
+                left: 20,
                 child: Text(
                   courseName,
-                  style: const TextStyle(
-                    fontSize: 24,
+                  style:  TextStyle(
+                    fontSize: screenwidth * 0.056,
                     fontWeight: FontWeight.bold,
                     color: Colors.white,
-                    shadows: [
-                      Shadow(
+                    shadows: const [
+                       Shadow(
                         offset: Offset(0, 1),
                         blurRadius: 3,
                         color: Color.fromARGB(128, 0, 0, 0),

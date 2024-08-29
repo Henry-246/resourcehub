@@ -19,12 +19,12 @@ class UserDetailsController extends GetxController {
   final selectedProgramme = ''.obs;
   final selectedLevel = '100'.obs;
   final selectedSemester = '1'.obs;
-
+  late GlobalKey<FormState> formKey;
   @override
   void onInit() {
     fetcheCourseName();
     userDetails = GetStorage(auth.currentUser!.uid);  
-
+    formKey = GlobalKey<FormState>();
     super.onInit();
   }
 

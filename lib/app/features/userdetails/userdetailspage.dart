@@ -11,13 +11,16 @@ import 'package:toggle_switch/toggle_switch.dart';
 class UserDetailsPage extends GetView<UserDetailsController> {
   const UserDetailsPage({super.key});
 
+  
   @override
   Widget build(BuildContext context) {
     TextStyle? getTitleLarge = Get.textTheme.titleLarge;
     TextStyle newTitleLargeStyle =
         getTitleLarge?.copyWith(color: Colors.white) ?? const TextStyle();
     final UserDetailsController meyou = Get.put(UserDetailsController());
-    final formKey = GlobalKey<FormState>();
+    
+    final screenwidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.grey[300],
       body: SafeArea(
@@ -48,9 +51,9 @@ class UserDetailsPage extends GetView<UserDetailsController> {
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     padding: const EdgeInsets.all(12),
                     width: 600,
-                    height: 450,
+                    height: 460,
                     decoration: BoxDecoration(
-                      color: Colors.grey[100]!.withOpacity(0.7),
+                      color: Colors.grey[100]!.withOpacity(0.5),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Column(
@@ -69,7 +72,7 @@ class UserDetailsPage extends GetView<UserDetailsController> {
                         const SizedBox(height: 8),
                         Container(
                           width: double.infinity,
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(12),
@@ -90,43 +93,47 @@ class UserDetailsPage extends GetView<UserDetailsController> {
                           //     print('Selected: $option');
                           //   },
                           // ),
-                          child: Form(
-                            key: formKey,
-                            child: TypeAheadField(
-                              onSelected: (value) {
-                                meyou.myProgrammeText.value.text = value;
-                                controller.selectedProgramme.value = value;
-                              },
-                              controller: meyou.myProgrammeText.value,
-                              builder: (context, controller, focusNode) {
-                                return TextFormField(
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return "Please type in your course";
-                                    }
-                                    return null;
-                                  },
-                                  controller: meyou.myProgrammeText.value,
-                                  focusNode: focusNode,
-                                  decoration: const InputDecoration(
-                                      contentPadding: EdgeInsets.all(16),
-                                      prefixIcon: Icon(Ionicons.search),
-                                      border: InputBorder.none,
-                                      prefixIconColor: Colors.blue),
-                                );
-                              },
-                              suggestionsCallback: (pattern) async {
-                                return controller.programmeName
-                                    .where((name) => name
-                                        .toLowerCase()
-                                        .contains(pattern.toLowerCase()))
-                                    .toList();
-                              },
-                              itemBuilder: (context, String value) {
-                                return ListTile(
-                                  title: Text(value),
-                                );
-                              },
+                          child: Center(
+                            child: Form(
+                              key: controller.formKey,
+                              child: TypeAheadField(
+                                
+                                onSelected: (value) {
+                                  meyou.myProgrammeText.value.text = value;
+                                  controller.selectedProgramme.value = value;
+                                },
+                                controller: meyou.myProgrammeText.value,
+                                builder: (context, controller, focusNode) {
+                                  return TextFormField(
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "Please type in your course";
+                                      }
+                                      return null;
+                                    },
+                                    controller: meyou.myProgrammeText.value,
+                                    focusNode: focusNode,
+                                    
+                                    decoration: const InputDecoration(
+                                        contentPadding: EdgeInsets.all(16),
+                                        prefixIcon: Icon(Ionicons.search),
+                                        border: InputBorder.none,
+                                        prefixIconColor: Colors.blue),
+                                  );
+                                },
+                                suggestionsCallback: (pattern) async {
+                                  return controller.programmeName
+                                      .where((name) => name
+                                          .toLowerCase()
+                                          .contains(pattern.toLowerCase()))
+                                      .toList();
+                                },
+                                itemBuilder: (context, String value) {
+                                  return ListTile(
+                                    title: Text(value),
+                                  );
+                                },
+                              ),
                             ),
                           ),
                           // child: const TextField(
@@ -153,13 +160,14 @@ class UserDetailsPage extends GetView<UserDetailsController> {
                             controller.selectedLevel.value =
                                 controller.level[index];
                           },
-                          minHeight: 80,
+                          minHeight: screenwidth * 0.15,
                           minWidth: double.infinity,
                           fontSize: 20,
                           activeBgColor: [Colors.blue.shade100],
                           activeFgColor: Colors.blue.shade500,
                           inactiveBgColor: Colors.white,
                           inactiveFgColor: Colors.grey[400],
+                          cornerRadius: 12,
                         ),
                         const SizedBox(height: 10),
                         Text(
@@ -175,25 +183,26 @@ class UserDetailsPage extends GetView<UserDetailsController> {
                             controller.selectedSemester.value =
                                 controller.semester[index];
                           },
-                          minHeight: 80,
-                          minWidth: 200,
+                          minHeight: screenwidth * 0.15,
+                          minWidth: double.infinity,
                           fontSize: 20,
                           activeBgColor: [Colors.blue.shade100],
                           activeFgColor: Colors.blue.shade500,
                           inactiveBgColor: Colors.white,
                           inactiveFgColor: Colors.grey[400],
+                          cornerRadius: 12,
                         ),
                         const SizedBox(height: 20),
                         const SizedBox(width: 15),
                         GestureDetector(
                           onTap: () {
-                            if (formKey.currentState!.validate()) {
+                            if (controller.formKey.currentState!.validate()) {
                               controller.saveSelections();
                             }
                             return;
                           },
                           child: Container(
-                            height: 50,
+                            height: screenwidth * 0.15,
                             padding: const EdgeInsets.all(12),
                             decoration: BoxDecoration(
                               color: Colors.blue.shade400,

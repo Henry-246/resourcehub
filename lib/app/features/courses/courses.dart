@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -28,15 +29,44 @@ class _CoursePageState extends State<CoursePage> {
       String sem = controller.isLoading.value ? '' : controller.semester;
       String year = controller.isLoading.value ? '' : controller.level;
       if (controller.isLoading.value) {
-        return Center(
-          child: LoadingAnimationWidget.staggeredDotsWave(
-            color: Colors.blue,
-            size: 90,
+        return Scaffold(
+          body: Center(
+            child: LoadingAnimationWidget.staggeredDotsWave(
+              color: Colors.blue,
+              size: 90,
+            ),
           ),
         );
       }
       if (controller.courses.isEmpty) {
         return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'Courses',
+              style: GoogleFonts.ubuntu(
+                fontSize: screenwidth * 0.06,
+                color: Colors.white,
+                shadows: [
+                  const Shadow(
+                    offset: Offset(0, 1),
+                    blurRadius: 3,
+                    color: Color.fromARGB(128, 0, 0, 0),
+                  ),
+                ],
+              ),
+            ),
+            backgroundColor: Colors.blue[200],
+            leading: IconButton(
+            icon: const Icon(
+              Icons.menu,
+              color: Colors.white,
+              size: 28,
+            ),
+              onPressed: () {
+                ZoomDrawer.of(context)!.toggle();
+              },
+            ),
+          ),
           // appBar: AppBar(
           //   title: Text(
           //     name,
@@ -127,10 +157,18 @@ class _CoursePageState extends State<CoursePage> {
                     margin: const EdgeInsets.all(12),
                     child: Center(
                       child: Text(
-                        'Menu',
+                        "Menu",
                         style: GoogleFonts.ubuntu(
-                          color: Colors.white,
+                          fontSize: 22,
                           fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          shadows: [
+                            const Shadow(
+                              offset: Offset(0, 1),
+                              blurRadius: 3,
+                              color: Color.fromARGB(128, 0, 0, 0),
+                            ),
+                          ],
                         ),
                       ),
                     ),
@@ -146,6 +184,34 @@ class _CoursePageState extends State<CoursePage> {
         );
       }
       return Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Courses',
+            style: GoogleFonts.ubuntu(
+              fontSize: screenwidth * 0.06,
+              color: Colors.white,
+              shadows: [
+                const Shadow(
+                  offset: Offset(0, 1),
+                  blurRadius: 3,
+                  color: Color.fromARGB(128, 0, 0, 0),
+                ),
+              ],
+            ),
+          ),
+          backgroundColor: Colors.blue[200],
+          leading: IconButton(
+            icon: const Icon(
+              Icons.menu,
+              color: Colors.white,
+              size: 28,
+            ),
+            onPressed: () {
+              ZoomDrawer.of(context)!.toggle();
+            },
+          ),
+        ),
+        backgroundColor: Colors.grey[100],
         // appBar: AppBar(
         //   title: Text(
         //     controller.isLoading.value ? '' : controller.programme,
@@ -256,10 +322,18 @@ class _CoursePageState extends State<CoursePage> {
                   margin: const EdgeInsets.all(12),
                   child: Center(
                     child: Text(
-                      'Menu',
+                      "Menu",
                       style: GoogleFonts.ubuntu(
-                        color: Colors.white,
+                        fontSize: 22,
                         fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        shadows: [
+                          const Shadow(
+                            offset: Offset(0, 1),
+                            blurRadius: 3,
+                            color: Color.fromARGB(128, 0, 0, 0),
+                          ),
+                        ],
                       ),
                     ),
                   ),

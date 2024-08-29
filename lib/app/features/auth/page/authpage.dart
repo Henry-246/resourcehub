@@ -70,6 +70,7 @@ class AuthPage extends GetView<AuthController> {
                             width: 500,
                             child: TextFormField(
                               controller: controller.emailController,
+                              keyboardType: TextInputType.emailAddress,
                               decoration: const InputDecoration(
                                 labelText: 'Email',
                                 border: OutlineInputBorder(),

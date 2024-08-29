@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -19,10 +20,35 @@ class _AskAiPageState extends State<AskAiPage> {
   final AsKAiController controller = Get.put(AsKAiController());
   @override
   Widget build(BuildContext context) {
+    var screenwidth = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
-        title: const Text('Ask Ai'),
+        title: Text(
+          'Ask Ai',
+          style: GoogleFonts.ubuntu(
+            fontSize: screenwidth * 0.06,
+            color: Colors.white,
+            shadows: [
+              const Shadow(
+                offset: Offset(0, 1),
+                blurRadius: 3,
+                color: Color.fromARGB(128, 0, 0, 0),
+              ),
+            ],
+          ),
+        ),
+        backgroundColor: Colors.blue[200],
+        leading: IconButton(
+            icon: const Icon(
+              Icons.menu,
+              color: Colors.white,
+              size: 28,
+            ),
+          onPressed: () {
+            ZoomDrawer.of(context)!.toggle();
+          },
+        ),
       ),
       body: Column(
         children: [
